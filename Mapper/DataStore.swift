@@ -27,6 +27,24 @@ struct Earthquake {
     var place:String
 }
 
+class EarthquakeAnotation: NSObject, MKAnnotation {
+    var earthquake:Earthquake
+    var coordinate:CLLocationCoordinate2D
+    
+    init(earthquake:Earthquake) {
+        self.earthquake = earthquake
+        self.coordinate = CLLocationCoordinate2D(latitude: earthquake.lat, longitude: earthquake.long)
+    }
+    
+    var title: String? {
+        return "Mag: \(earthquake.mag.format("0.2"))"
+    }
+    
+    var subtitle: String? {
+        return earthquake.place
+    }
+}
+
 
 class DataStore {
     static var sharedInstance = DataStore()
